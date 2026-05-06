@@ -9,6 +9,9 @@ import { useContext } from "react";
 import { AppContext } from "./context/AppContext";
 import MyOrders from "./pages/MyOrders";
 import Auth from "./models/Auth";
+import ProductCategory from "./pages/ProductCategory";
+import Footer from "./components/Footer";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   const {isSeller,showUserLogin}=useContext(AppContext);
@@ -18,15 +21,18 @@ const App = () => {
     <div className="text-default min-h-screen">
       {isSellerPath ? null: <Navbar />}
       {showUserLogin ? <Auth /> : null}
+      <Toaster />
       <div className="px-6 md:px-16 lg:px-24 xl:px:32">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<ProductDetails />} />
+          <Route path="/products/:category/:id" element={<ProductDetails />} />
+          <Route path="/products/:category" element={<ProductCategory />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/my-orders" element={<MyOrders />} />
         </Routes>
       </div>
+      {isSellerPath?null:<Footer />}
     </div>
   );
 };
