@@ -6,7 +6,7 @@ import { assets } from '../assets/assets';
 
 const Navbar = () => {
     const [open, setOpen] = React.useState(false);
-    const {user,setUser,navigate,setShowUserLogin}=useContext(AppContext);
+    const {user,setUser,navigate,setShowUserLogin,cartCount}=useContext(AppContext);
 
     return (
         <nav className="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
@@ -29,7 +29,7 @@ const Navbar = () => {
 
                 <div onClick={() => navigate('/cart')} className="relative cursor-pointer">
                    <img src={assets.cart_icon} alt="" className="w-6.5 h-6.5" />
-                    <button className="absolute -top-2 -right-3 text-xs text-white bg-indigo-500 w-[18px] h-[18px] rounded-full">3</button>
+                    <button className="absolute -top-2 -right-3 text-xs text-white bg-indigo-500 w-[18px] h-[18px] rounded-full">{cartCount()}</button>
                 </div>
 
                 {user ? (
