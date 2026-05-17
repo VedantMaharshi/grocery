@@ -1,8 +1,8 @@
 import React from 'react';
-import { useContext,useState } from 'react';
+import { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import { assets } from '../../assets/assets';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
 const SellerLayout = () => {
     const {isSeller,setIsSeller,navigate}=useContext(AppContext);
@@ -18,10 +18,13 @@ const SellerLayout = () => {
                 <h1 className="text-4xl font-bold text-indigo-600">GoGrocey</h1>
                 <div className="flex items-center gap-5 text-gray-500">
                     <p>Hi! SELLER</p>
-                    <button onClick={() => {setIsSeller(false);navigate("/");}} className='border rounded-full text-sm px-4 py-1'>Logout</button>
+                    <button onClick={() => {setIsSeller(false);navigate("/");}} 
+                    className='border rounded-full text-sm px-4 py-1 cursor-pointer'>Logout</button>
                 </div>
             </div>
-            <div className="md:w-64 w-16 border-r h-[550px] text-base border-gray-300 pt-4 flex flex-col transition-all duration-300">
+            <div className="flex">
+                <div className="md:w-64 w-16 border-r h-[550px] 
+                text-base border-gray-300 pt-4 flex flex-col transition-all duration-300">
                 {sidebarLinks.map((item) => (
                     <NavLink to={item.path} key={item.name} end={item.path === "/seller"}
                         className={({ isActive })=>`flex items-center py-3 px-4 gap-3
@@ -33,6 +36,8 @@ const SellerLayout = () => {
                     </NavLink>
                 ))}
             </div>
+            <Outlet />
+        </div>
     </>
   )
 }

@@ -1,9 +1,58 @@
 import React from 'react'
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { dummyOrders } from '../assets/assets';
 
 const MyOrders = () => {
+  const [myOrders,setMyOrders]=useState([]);
+  const fetchOrders=async()=>{
+    setMyOrders(dummyOrders);
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  },[]);
+
   return (
-    <div>
-      My Orders
+    <div className='mt-12 pb-16'>
+      <div>
+        <p className='text-2xl font-medium md:text-3xl'>MY ORDERS</p>
+      </div>
+      {myOrders.map((order, index) => (
+        <div key={index} className='my-8 border border-gray-300 
+        rounded-lg mb-10 p-4 py-5 max-w-4xl'>
+          <p className='flex justify-between items-center gap-6'>
+            <span>Order ID:{order._id}</span>
+            <span>Payment:{order.paymentType}</span>
+            <span>TotalAmount:₹{order.amount}</span>
+          </p>
+          {
+            order.items.map((item, index) => (
+              <div key={index} className={`relative bg-white text-gray-800/70  
+                ${order.items.length === index+1 && "border-b"} 
+                border-gray-300 py-5 p-4 flex flex-col md:flex-row md:items-center 
+                justify-between w-full max-w-4xl`}>
+                  <div className='flex items-center mb-4 md:mb-0'>
+                    <div className='p-4 rounded-lg'>
+                      <img src={item.product.image[0]} 
+                      alt="productImage" className='w-16 h-16' />
+                    </div>
+                    <div className='ml-4'>
+                      <h2 className='text-xl font-medium'>{item.product.name}</h2>
+                      <p>{item.product.category}</p>
+                    </div>
+                  </div>
+                   <div className='text-lg font-medium'>
+                    <p>Quantity: {item.quantity || "1"}</p>
+                    <p>Status: {order.status}</p>
+                    <p>Date: {new Date(order.createdAt).toLocaleDateString()}</p>
+                   </div>
+                   <p className='text-lg'>Amount: ₹{item.product.offerPrice*item.quantity}</p>
+                </div>
+            ))
+          }
+        </div>
+      ))}
     </div>
   )
 }
