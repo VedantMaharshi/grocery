@@ -17,6 +17,28 @@
   }
 }
 
+/* splash screen container */
+.landing-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: var(--background);
+  width: 100%;
+}
+
+/* splash screen logo */
+.landing-logo {
+  font-size: 70px;
+  font-weight: bold;
+  color: blue;
+  text-shadow: 2px 2px 4px var(--accent-shadow);
+  margin: 0;
+  will-change: opacity;
+  transform: translate3d(0,0,0);
+  animation: ultraSmoothFade 7s ease-in-out forwards;
+}
+
 .hero {
   position: relative;
 
